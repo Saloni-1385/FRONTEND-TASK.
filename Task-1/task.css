@@ -1,0 +1,113 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at 20% 20%, #0d7084, transparent),
+              radial-gradient(circle at 80% 30%, #e8ebf0, transparent),
+              radial-gradient(circle at 40% 80%, #fcb69f, transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  color: #333;
+}
+
+h2 {
+  color: #444;
+  margin-bottom: 20px;
+}
+
+#taskInput {
+  width: 300px;
+  padding: 12px 15px;
+  border: 2px solid #130735;
+  border-radius: 6px 0 0 6px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#taskInput:focus {
+  border-color: #abc2d8;
+  box-shadow: 0 0 8px #1e90ff66;
+}
+
+#addBtn {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #bbcdde;
+  background-color: #899ccb;
+  color: white;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  user-select: none;
+}
+
+#addBtn:hover {
+  background-color: #94b4b5;
+  border-color: #616973;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 30px;
+  width: 360px;
+}
+
+li {
+  background: rgb(17, 131, 173);
+  padding: 12px 15px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(127, 155, 167, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+li:hover {
+  box-shadow: 0 4px 14px rgba(108, 189, 219, 0.1);
+}
+
+span {
+  flex: 1;
+  font-size: 16px;
+  word-break: break-word;
+}
+
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+button:hover {
+  background-color: #e1ecff;
+}
+
+button:nth-child(2) {
+  color: #c5e0fb;
+}
+
+button:nth-child(3) {
+  color: #0e134d;
+}
+
+.neon {
+  width: 200px;
+  height: 200px;
+  background: #514459;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #074749, 0 0 40px #a594c5;
+}
+
+
+
+  
