@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Gallery Loader</title>
+  <style>
+    body {
+      background: #d1e880;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 10px;
+    }
+    img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.8s ease-in;
+    }
+    img.show {
+      opacity: 1;
+    }
+    button {
+      margin-top: 30px;
+      background: #8ba593;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #4fa57f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Gallery Loader</h1>
+  <div id="gallery"></div>
+  <button id="loadMore">Load More</button>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const loadMoreBtn = document.getElementById('loadMore');
+    const accessKey = 'YOUR_UNSPLASH_ACCESS_KEY';
+    
+    async function fetchImages() {
+      const response = await fetch(`https://api.unsplash.com/photos/random?count=9&client_id=${accessKey}`);
+      const images = await response.json();
+      displayImages(images);
+    }
+    
+    function displayImages(images) {
+      images.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image.urls.small;
+        img.onload = () => img.classList.add('show');
+        gallery.appendChild(img);
+      });
+    }
+    
+    loadMoreBtn.addEventListener('click', fetchImages);
+    fetchImages();
+  </script>
+</body>
+</html>

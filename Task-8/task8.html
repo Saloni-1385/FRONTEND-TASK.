@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sequential Promise Execution</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      margin: 40px;
+      color: #333;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 25px;
+      letter-spacing: 1.2px;
+      color: #4a4a4a;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    li {
+      background: rgb(122, 181, 190);
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 12px;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      transition: background-color 0.3s ease, font-weight 0.3s ease;
+    }
+    li.current {
+      font-weight: 700;
+      background-color: #d6eaff;
+      box-shadow: 0 0 12px rgba(0,120,255,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h2>Sequential Promise Steps</h2>
+  <ul id="stepsList"></ul>
+
+  <script>
+    const steps = [
+      "Step 1 done",
+      "Step 2 done",
+      "Step 3 done"
+    ];
+
+    const list = document.getElementById('stepsList');
+
+    function createListItem(text) {
+      const li = document.createElement('li');
+      li.textContent = text;
+      return li;
+    }
+
+    function addStep(text, isCurrent) {
+      const li = createListItem(text);
+      if (isCurrent) {
+        li.classList.add('current');
+      }
+      list.appendChild(li);
+      return li;
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function runSequential() {
+      for (let i = 0; i < steps.length; i++) {
+        const currentItem = addStep(steps[i], true);
+        await wait(1000);
+        currentItem.classList.remove('current');
+      }
+    }
+
+    runSequential();
+  </script>
+</body>
+</html

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Random Joke Generator</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    #container {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 30px 40px;
+      border-radius: 12px;
+      width: 360px;
+      box-shadow: 0 0 20px rgba(118, 75, 162, 0.7);
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+    }
+    #setup {
+      font-size: 20px;
+      margin-bottom: 15px;
+      min-height: 48px;
+    }
+    #punchline {
+      font-size: 18px;
+      font-style: italic;
+      margin-bottom: 25px;
+      min-height: 42px;
+      color: #dcdcdc;
+    }
+    button {
+      background-color: #764ba2;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background-color: #a58fd4;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #b966b1;
+    }
+    #error {
+      margin-top: 12px;
+      color: #ff6b6b;
+      min-height: 20px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Random Joke Generator</h1>
+    <div id="setup"></div>
+    <div id="punchline"></div>
+    <button id="nextJokeBtn">Next Joke</button>
+    <div id="error"></div>
+  </div>
+  
+  <script>
+    const setupEl = document.getElementById('setup');
+    const punchlineEl = document.getElementById('punchline');
+    const nextJokeBtn = document.getElementById('nextJokeBtn');
+    const errorEl = document.getElementById('error');
+
+    function fetchJoke() {
+      nextJokeBtn.disabled = true;
+      errorEl.textContent = '';
+      setupEl.textContent = "Loading...";
+      punchlineEl.textContent = "";
+
+      fetch('https://official-joke-api.appspot.com/random_joke')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setupEl.textContent = data.setup;
+          punchlineEl.textContent = data.punchline;
+          nextJokeBtn.disabled = false;
+        })
+        .catch(err => {
+          setupEl.textContent = '';
+          punchlineEl.textContent = '';
+          errorEl.textContent = 'Failed to load joke. Please try again.';
+          nextJokeBtn.disabled = false;
+        });
+    }
+
+    nextJokeBtn.addEventListener('click', fetchJoke);
+    fetchJoke();
+  </script>
+</body>
+</html>
